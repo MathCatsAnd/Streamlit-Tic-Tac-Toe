@@ -11,3 +11,4 @@ Planned Improvements:
 1. Make the game board interactive instead of relying on external buttons.
 2. Shut down zoom control on the game board so accidental click and drag doesn't misalign the board.
 3. Add a computer opponent.
+4. Make current player more obvious.
