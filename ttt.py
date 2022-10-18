@@ -3,11 +3,12 @@ import plotly.graph_objects as go
 import numpy as np
 
 st.title('Tic Tac Toe')
+
 def reset_game():
     del st.session_state.game
     del st.session_state.player
     del st.session_state.victory
-st.button('reset game', on_click=reset_game)
+st.button('reset game', on_click = reset_game)
 
 def initialize():
     if 'color1' not in st.session_state:
@@ -30,12 +31,12 @@ color1 = st.session_state.color1
 color2 = st.session_state.color2
 
 with st.sidebar:
-    st.header("Settings Panel")
+    st.header("Player Settings")
 
     def reset_colors():
         del st.session_state.color1
         del st.session_state.color2
-    st.button('reset colors',on_click=reset_colors)
+    st.button('reset colors',on_click = reset_colors)
 
     color1 = st.color_picker('❄️ Player 1 Color', value = color1)
     color2 = st.color_picker('🎈 Player 2 Color', value = color2)
@@ -132,10 +133,9 @@ board_figure = go.Figure(data=[go.Scatter(
         size=75,
     )
 )])
-board_figure.update_layout(height=500, width=500)
+modebar = ['zoom','zoomIn2d', 'zoomOut2d', 'lasso', 'select','pan', 'autoscale', 'toimage']
+board_figure.update_layout(height=500, width=500, modebar_remove=modebar)
 board_figure.update_xaxes(tickvals=[.5,1.5], range=[-.4,2.4], zeroline=False)
 board_figure.update_yaxes(tickvals=[.5,1.5], range=[-.4,2.4], zeroline=False)
 
 st.plotly_chart(board_figure)
-
-    
