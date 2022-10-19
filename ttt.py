@@ -38,6 +38,7 @@ with st.sidebar:
         del st.session_state.color2
     st.button('reset colors',on_click = reset_colors)
 
+    # Set player colors
     color1 = st.color_picker('❄️ Player 1 Color', value = color1)
     color2 = st.color_picker('🎈 Player 2 Color', value = color2)
     st.session_state.color1 = color1
@@ -45,14 +46,17 @@ with st.sidebar:
 
     color = {1:color1,-1:color2,0:'grey'}
 
+# Check for game end
 if st.session_state.victory != 0:
+    # Check for tie
     if st.session_state.victory > 1:
         st.success('It\'s a tie! Please click reset to play again.')
     else:
+        # Display winner message
         st.success('Player '+ str(victory%3) + ' won! Please click reset to play again.')
         if st.session_state.victory == 1:
             st.snow()
-        else: # victory == -1
+        else:
             st.balloons()
 else:
     st.info('It\'s player ' + str(player%3) + '\'s turn. Choose your move.')
@@ -95,6 +99,7 @@ def check_win(i,j,player):
         return
     return
 
+# Create buttons to select plays/moves
 board = st.expander("Button Controls: Click to play",expanded=True)
 with board:
     cols = st.columns(5)
@@ -106,9 +111,11 @@ with board:
                           disabled = bool(game[i][j]) or bool(victory), 
                           on_click = play, args=(i,j,player), key=str(i)+str(j))
 
+# Read game board data for plotting
 x=[]
 y=[]
-z=[]
+z=[] # Color of marker
+o=[] # Opacity
 size=[]
 for i in range(3):
     for j in range(3):
@@ -116,11 +123,13 @@ for i in range(3):
             x.append(i)
             y.append(j)
             z.append(color[game[i][j]])
+            o.append(.6)
             size.append(75)
         else:
             x.append(i)
             y.append(j)
-            z.append(0)
+            z.append(color[0])
+            o.append(.3)
             size.append(10)
 
 
@@ -129,7 +138,7 @@ board_figure = go.Figure(data=[go.Scatter(
     mode='markers',
     marker=dict(
         color=z,
-        opacity=.6,
+        opacity=o,
         size=75,
     )
 )])
