@@ -1,2 +1,2 @@
-plotly
 numpy
+-i https://test.pypi.org/simple/ streamlit-gameboard
